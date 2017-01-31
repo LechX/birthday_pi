@@ -854,3 +854,7 @@
 		body.is-ie #wrapper {
 			height: 100%;
 		}
+
+.output {
+	color: transparent;
+}
