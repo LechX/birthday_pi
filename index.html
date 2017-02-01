@@ -15,6 +15,23 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	  <script>
+	  $( function() {
+	    $( "#datepicker" ).datepicker({
+	      changeMonth: true,
+	      changeYear: true,
+				duration: "slow",
+				minDate: new Date(1900, 1 - 1, 1),
+				maxDate: new Date(2050, 12 - 1, 31),
+				yearRange: "1900:2050",
+				nextText: "",
+				prevText: "",
+				dayNamesMin: [ "S", "M", "T", "W", "T", "F", "S" ]
+	    });
+	  } );
+	  </script>
 	</head>
 	<body class="is-loading">
 
@@ -26,14 +43,14 @@
 						<header>
 							<span class="avatar"><img src="images/calculator.jpg" alt="" /></span>
 							<h1>Find your birthday in pi</h1>
-							<p>Enter a date below</p>
+							<p>Searches through <i>one billion</i> digits!</p>
 						</header>
 						<!-- -->
 						<hr />
-						<h2>Searches through one billion digits!</h2>
 						<form method="post" action="#">
 							<div class="field">
-								<input type="date" name="date" id="name" min="1900-01-01" max="2015-12-31" />
+								<input type="text" id="datepicker" placeholder="Enter date (MM/DD/YYYY)">
+								<!-- <input type="date" name="date" id="name" min="1900-01-01" max="2015-12-31" /> -->
 							</div>
 							<!-- <div class="field">
 								<input type="month" name="email" id="email" placeholder="Month" />
@@ -66,7 +83,7 @@
 						<hr />
 						<div>
 							<h1 class="output">Success!</h1>
-							<p class="output" id="result"></p>
+							<h1 class="output" id="result"></h1>
 						</div>
 						<hr />
 						<!-- -->

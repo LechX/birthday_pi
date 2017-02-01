@@ -1,81 +1,56 @@
-function pullDigits() {
-
-  // send AJAX request and set innerHTML for p element
-
-  // Your birthday is the 108,806,460<sup>th</sup> digit in pi.
-
-  $('.output').css("color", "black");
-
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 
+function pullDigits() {
 
-/*
+  // pull date from datepicker and format as "MMDDYYYY" string
+  var dateSelected = $("#datepicker").datepicker("getDate");
 
-var btn = document.getElementById("calculate");
+  var monthSelected = "0";
+  var daySelected = "0";
+  var yearSelected = dateSelected.getFullYear();
 
-btn.addEventListener("click",function(){
+  if (dateSelected.getMonth() + 1 < 10) {
+    monthSelected += (dateSelected.getMonth() + 1);
+  } else {
+    monthSelected = (dateSelected.getMonth() + 1);
+  }
 
-    var ourRequest = new XMLHttpRequest();
+  if (dateSelected.getDate() < 10) {
+    daySelected += (dateSelected.getDate());
+  } else {
+    daySelected = (dateSelected.getDate());
+  }
 
-    ourRequest.open("GET", 'https://learnwebcode.github.io/json-example/animals-' + pageCounter + '.json');
+  var dictionaryKey = (monthSelected + daySelected + yearSelected).toString();
 
-    // error function
-    ourRequest.onerror = function() {
-        console.log("Connection error");
-    };
+  // send AJAX request to grab corresponding digit
+  var theDigit = 0;
 
-    ourRequest.send();
+  // INSERT AJAX REQUEST HERE
 
-    ourRequest.onload = function () {
+  theDigit = numberWithCommas(theDigit)
 
-        var ourData = JSON.parse(ourRequest.responseText);
+  // if statement to determine proper superscript
+  var digitSuper = "";
 
-        renderHTML(ourData);
+  if (theDigit % 10 == 1) {
+    digitSuper = "st";
+  } else if (theDigit % 10 == 2) {
+    digitSuper = "nd";
+  } else if (theDigit % 10 == 3) {
+    digitSuper = "rd";
+  } else {
+    digitSuper = "th";
+  }
 
-        };
+  // Your birthday is the 108,806,460<sup>th</sup> digit in pi.
+  var reportString = "Your birthday is the<br>" + theDigit + "<sup>" + digitSuper + "</sup> digit in pi.";
 
-    pageCounter++;
+  $('#result').html(reportString);
 
-    if (pageCounter > 3) {
-        btn.classList.add("hide-me");
-    }
-
-});
-*/
-
-
-/**
- * This is a function that will parse JSON objects that are passed in and add HTML
- * @param data
- */
-function renderHTML(data) {
-
-    var htmlString = "";
-
-    for (var i = 0; i < data.length; i++) {
-
-        htmlString += "<p>" + data[i].name + " is a " + data[i].species + " that likes to eat ";
-
-        for (var k = 0; k < data[i].foods.likes.length; k++) {
-            if (k == 1) {
-                htmlString += " and ";
-            }
-            htmlString += data[i].foods.likes[k];
-        }
-
-        htmlString += " but dislikes ";
-
-        for (var j = 0; j < data[i].foods.dislikes.length; j++) {
-            if (j == 1) {
-                htmlString += " and ";
-            }
-            htmlString += data[i].foods.dislikes[j];
-        }
-
-        htmlString += "." + "</p>";
-    }
-
-    contents.insertAdjacentHTML('beforeend',htmlString);
+  $('.output').css("color", "black");
 
 }
